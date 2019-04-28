@@ -10,13 +10,15 @@ namespace MathUtils.Tests
     [TestFixture]
     public class CalculatorTests
     {
+        private IDivide divide = null;
+
         [Test]
         [TestCase(5, 5, ExpectedResult = 1)]
         [TestCase(10, 2, ExpectedResult = 5)]
         public int Test_Divide_Method_Within_Int_Range(int x, int y) // (без Assert) нужен тип возвр.знач. и аргументы
         {
-            var calc = new Calculator();
-            return calc.Divide(x, y);
+            divide = new Calculator();
+            return divide.Divide(x, y);
         }
 
         [Test]
@@ -78,7 +80,10 @@ namespace MathUtils.Tests
             Assert.AreEqual(4, result);
 
             var resultSec = calc.Pow(3, 2);
-            Assert.AreNotEqual(10, result);
+            //Assert.AreNotEqual(10, result);
+            Assert.That(10 != resultSec); // аналогично, но с that
+            //Assert.That(result, Is.Null); проверка на NULL
+            //Assert.That(result, Is.True); проверка на TRUE/FALSE
         }
     }
 }

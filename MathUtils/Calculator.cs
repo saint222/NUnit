@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace MathUtils
 {
-    public class Calculator
+
+    public interface IDivide
+    {
+        int Divide(int x, int y);
+    }
+    
+    public class Calculator : IDivide
     {
         public int Sum(int x, int y)
         {
