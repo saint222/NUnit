@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace MathUtils
 {
+    public interface ILogger
+    {
+        void Log(string text);
+    }
 
+    public class Logger : ILogger
+    {
+        public void Log(string text)
+        {
+            //log to a file
+        }
+    }
+    
     public interface IDivide
     {
         int Divide(int x, int y);
@@ -14,9 +26,17 @@ namespace MathUtils
     
     public class Calculator : IDivide
     {
+        private readonly ILogger _logger;
+
+        public Calculator(ILogger logger)
+        {
+            _logger = logger;
+        }
         public int Sum(int x, int y)
         {
-            return x + y; ;
+            var result = x + y;
+            _logger.Log($"{x} + {y} = {result}");
+            return result;            
         }
 
         public int Subtract (int x, int y)
