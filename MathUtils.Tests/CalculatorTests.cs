@@ -46,7 +46,7 @@ namespace MathUtils.Tests
         {
             var calc = new Calculator(_logger);
             var result = calc.Sum(10, 1);
-            Assert.IsTrue(result <= 10, "The result is expected to be 10 or more...");// проверка с последующей ошибкой
+            /*Assert.IsTrue(result <= 10, "The result is expected to be 10 or more...");*/// проверка с последующей ошибкой
             Assert.AreEqual(11, result); // ожидаемый и реальный            
             Assert.AreNotEqual(0, calc.Sum(1,1)); // ошибочный и реальный (укороченный вариант)            
         }
