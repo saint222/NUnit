@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using NUnit.Framework;
@@ -15,13 +16,19 @@ namespace MathUtils.Tests
 
         private ILogger _logger;
 
-        [SetUp]
+        [SetUp] // метод будет выполнятсья ПЕРЕД запуском каждого теста 
         public void MockInitialize()
         {
             var mock = new Mock<ILogger>();
-
             mock.Setup(o => o.Log(It.IsAny<string>())).Callback<string>(Console.WriteLine);
+            mock.Setup(o => o.Log(It.Is<string>(x => int.Parse(x.Split('=').Last().Trim()) >= 10))).Throws(new ArgumentException("The result is > or == 10..."));
             _logger = mock.Object;
+        }
+
+        [TearDown] // метод будет выполнятсья ПОСЛЕ запуском каждого теста 
+        public void AfterTest()
+        {
+           // Do something after the 
         }
 
         [Test]
@@ -38,7 +45,8 @@ namespace MathUtils.Tests
         public void Test_Divide_By_Zero_Method()
         {
             divide = new Calculator(_logger);
-            Assert.Throws<DivideByZeroException>(() => divide.Divide(5, 0));
+            Assert.Throws<DivideByZeroException>(() => divide.Divide(5, 0));           
+            
         }
 
         [Test]
